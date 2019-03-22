@@ -3,6 +3,8 @@ from library.labyrinth import *
 # der Spieler ist bei 0,0
 # Das Spielfeld hat Größe 15 x 15
 
+set_size(30,30)
+
 for x in range(1, 5):
     add_block(x, 0, "grass")
 add_block(1, 1, "coal")
@@ -13,7 +15,8 @@ add_block(7, 3, "water")
 
 
 #for i in range(5):
-#    make_move("right")
-#    make_move("down")
+
+make_move("right")
+make_move("down")
 
 start()

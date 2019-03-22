@@ -31,18 +31,27 @@ textures = {
 
 # useful game dimensions
 TILESIZE = 40
-MAPWIDTH = 15
-MAPHEIGHT = 15
+MAPWIDTH = 10
+MAPHEIGHT = 10
 
 tilemap = [[DIRT for w in range(MAPWIDTH)] for h in range(MAPHEIGHT)]
 
-moves = []
+moves = ["noop"]
 
 resources = [DIRT, GRASS, COAL]
 
 
 def make_move(move):
     moves.append(move)
+
+
+def set_size(width, height):
+    global tilemap
+    global MAPHEIGHT
+    global MAPWIDTH
+    tilemap = [[DIRT for w in range(width)] for h in range(height)]
+    MAPWIDTH = width
+    MAPHEIGHT = height
 
 
 def add_block(x_position, y_position, block_type):
@@ -63,14 +72,21 @@ def start():
     DISPLAYSURF = pygame.display.set_mode((MAPWIDTH * TILESIZE, MAPHEIGHT * TILESIZE))
 
     # the player image
-    PLAYER = pygame.image.load('library/player.png').convert_alpha()
+    PLAYER = pygame.image.load('library/player_female.png').convert_alpha()
     # the position of the player [x,y]
 
     i = 0
     while True:
         if i == 0:
             player_pos = [0, 0]
+            coal_counter = 0
+            found_coal = []
+
         move = moves[i] if len(moves) > 0 else "noop"
+
+        player_pos[0] += direction_vectors[move][0]
+        player_pos[1] += direction_vectors[move][1]
+
         i = i + 1 if i < len(moves) - 1 else 0  # i want to repeat the animation
         # get all the user events
         for event in pygame.event.get():
@@ -89,7 +105,6 @@ def start():
                 # display the player at the correct position
         DISPLAYSURF.blit(PLAYER, (player_pos[0] * TILESIZE, player_pos[1] * TILESIZE))
 
-        # display the inventory, starting 10 pixels in
         textObj = INVFONT.render("Kohle: " + str(coal_counter), True, WHITE, BLACK)
         DISPLAYSURF.blit(textObj, (10, MAPHEIGHT * TILESIZE - 30))
 
@@ -101,21 +116,19 @@ def start():
         if current_code == GOAL:
             textObj = INVFONT.render("Geschafft!", True, WHITE, BLACK)
             DISPLAYSURF.blit(textObj, (10, MAPHEIGHT * TILESIZE - 30))
-            pygame.display.update()
+
         elif current_code == COAL and not tuple(player_pos) in found_coal:
             coal_counter += 1
             found_coal.append(tuple(player_pos))
+            textObj = INVFONT.render("Kohle: " + str(coal_counter), True, WHITE, BLACK)
+            DISPLAYSURF.blit(textObj, (10, MAPHEIGHT * TILESIZE - 30))
         elif current_code == WATER:
             textObj = INVFONT.render("Du kannst nicht über Wasser gehen!", True, WHITE, BLACK)
             DISPLAYSURF.blit(textObj, (10, MAPHEIGHT * TILESIZE - 30))
             pygame.display.update()
             i = 0
-            coal_counter = 0
-            found_coal = []
             continue
-
-        player_pos[0] += direction_vectors[move][0]
-        player_pos[1] += direction_vectors[move][1]
+        pygame.display.update()
 
 
 if __name__ == '__main__':
