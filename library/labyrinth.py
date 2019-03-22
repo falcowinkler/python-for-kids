@@ -17,9 +17,9 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 WHITE = (255, 255, 255)
 
-types = {"dirt": 0, "grass": 1, "water": 2, "coal": 3, "goal": 4}
+types = {"Dreck": 0, "Gras": 1, "Wasser": 2, "Kohle": 3, "Ziel": 4}
 
-direction_vectors = {"left": [-1, 0], "right": [1, 0], "up": [0, -1], "down": [0, 1], "noop": [0, 0]}
+direction_vectors = {"Links": [-1, 0], "Rechts": [1, 0], "Hoch": [0, -1], "Runter": [0, 1], "noop": [0, 0]}
 # a dictionary linking resources to textures
 textures = {
     DIRT: pygame.image.load('library/dirt.png'),
@@ -41,7 +41,7 @@ moves = ["noop"]
 resources = [DIRT, GRASS, COAL]
 
 
-def make_move(move):
+def bewegung(move):
     moves.append(move)
 
 
@@ -54,7 +54,7 @@ def set_size(width, height):
     MAPHEIGHT = height
 
 
-def add_block(x_position, y_position, block_type):
+def block(x_position, y_position, block_type):
     try:
         tilemap[y_position][x_position] = types[block_type]
     except IndexError:

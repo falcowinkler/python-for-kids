@@ -3,20 +3,24 @@ from library.labyrinth import *
 # der Spieler ist bei 0,0
 # Das Spielfeld hat Größe 15 x 15
 
-set_size(30,30)
+set_size(15, 15)
+
+# Labyrinth aufbauen
 
 for x in range(1, 5):
-    add_block(x, 0, "grass")
-add_block(1, 1, "coal")
-add_block(2, 3, "coal")
-add_block(5, 4, "goal")
-add_block(5, 5, "water")
-add_block(7, 3, "water")
+    block(x, 0, "Gras")
+
+block(0, 1, "Dreck")
+block(1, 1, "Kohle")
+block(2, 3, "Kohle")
+block(5, 4, "Ziel")
+block(5, 5, "Wasser")
+block(7, 3, "Wasser")
 
 
-#for i in range(5):
+# Durch das labyrinth navigieren
 
-make_move("right")
-make_move("down")
+bewegung("Rechts")
+bewegung("Links")
 
 start()
