@@ -18,6 +18,7 @@ BLUE = (0, 0, 255)
 WHITE = (255, 255, 255)
 
 types = {"Dreck": 0, "Gras": 1, "Wasser": 2, "Kohle": 3, "Ziel": 4}
+types_revers = {v: k for k, v in types.items()}
 
 direction_vectors = {"Links": [-1, 0], "Rechts": [1, 0], "Hoch": [0, -1], "Runter": [0, 1], "noop": [0, 0]}
 # a dictionary linking resources to textures
@@ -59,6 +60,12 @@ def block(x_position, y_position, block_type):
         tilemap[y_position][x_position] = types[block_type]
     except IndexError:
         print("So groß ist dein labyrinth nicht")
+
+
+def block_typ(x_position, y_position):
+    if x_position < 0 or y_position < 0:
+        return "Nichts"
+    return types_revers[tilemap[y_position][x_position]]
 
 
 def start():
