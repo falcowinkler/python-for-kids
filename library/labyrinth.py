@@ -63,7 +63,7 @@ def block(x_position, y_position, block_type):
 
 
 def block_typ(x_position, y_position):
-    if x_position < 0 or y_position < 0:
+    if x_position < 0 or y_position < 0 or x_position > MAPWIDTH or y_position > MAPHEIGHT:
         return "Nichts"
     return types_revers[tilemap[y_position][x_position]]
 
