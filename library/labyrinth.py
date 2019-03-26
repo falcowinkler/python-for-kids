@@ -30,6 +30,8 @@ textures = {
     GOAL: pygame.image.load('library/goal.png')
 }
 
+player = 'library/player_female.png'
+
 # useful game dimensions
 TILESIZE = 40
 MAPWIDTH = 10
@@ -53,6 +55,16 @@ def set_size(width, height):
     tilemap = [[DIRT for w in range(width)] for h in range(height)]
     MAPWIDTH = width
     MAPHEIGHT = height
+
+
+def waehle_spieler(geschlecht):
+    global player
+    if geschlecht == "boy":
+        player = 'library/player_male.png'
+    elif geschlecht == "girl":
+        player = 'library/player_female.png'
+    else:
+        print("Wähle entweder 'boy' oder 'girl'")
 
 
 def block(x_position, y_position, block_type):
@@ -79,7 +91,7 @@ def start():
     DISPLAYSURF = pygame.display.set_mode((MAPWIDTH * TILESIZE, MAPHEIGHT * TILESIZE))
 
     # the player image
-    PLAYER = pygame.image.load('library/player_female.png').convert_alpha()
+    PLAYER = pygame.image.load(player).convert_alpha()
     # the position of the player [x,y]
 
     i = 0
